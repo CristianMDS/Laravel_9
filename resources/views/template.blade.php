@@ -8,7 +8,12 @@
 <body>
     <nav>
         <a href="{{ route('home') }}"> Home </a>
-        <a href="{{ route('posts') }}"> Publicaciones </a>
+
+        @auth
+            <a href="{{ route('dashboard') }}"> Dashboard </a>
+        @else
+            <a href="{{ route('login') }}"> Login </a>
+        @endauth
     </nav>
 
     @yield('content')
