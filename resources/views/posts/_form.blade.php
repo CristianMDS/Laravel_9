@@ -1,13 +1,40 @@
 @csrf
 
-<label class="uppercase text-gray-700 text-xs">ID</label>
-<input type="number" name="id" class="rounded border-gray-200 w-full mb-4" value="{{$posts->id}}">
+<label class="uppercase text-gray-700 text-xs">Titulo</label>
+<span class="text-xs text-red-600">
+    @error('title')
+        {{$message}}
+    @enderror
+</span>
+<input type="text" 
+    name="title" 
+    class="rounded border-gray-200 w-full mb-4" 
+    value="{{ old('title', $posts->title) }}"
+/>
 
-<label class="uppercase text-gray-700 text-xs">TITULO</label>
-<input type="text" name="title" class="rounded border-gray-200 w-full mb-4" value="{{$posts->title}}">
+<label class="uppercase text-gray-700 text-xs">Slug</label>
+<span class="text-xs text-red-600">
+    @error('slug')
+        {{$message}}
+    @enderror
+</span>
+<input type="text" 
+    name="slug" 
+    class="rounded border-gray-200 w-full mb-4" 
+    value="{{ old('slug', $posts->slug) }}"
+/>
 
 <label class="uppercase text-gray-700 text-xs">Contenido</label>
-<textarea name="body" rows="5" class="rounded border-gray-200 w-full mb-4" >{{$posts->body}}</textarea>
+<span class="text-xs text-red-600">
+    @error('body')
+        {{$message}}
+    @enderror
+</span>
+<textarea 
+    name="body" 
+    rows="5" 
+    class="rounded border-gray-200 w-full mb-4" >{{ old('body', $posts->body)}}
+</textarea>
 
 <div>
     <a href="{{route('posts.index')}}" class="text-red-600">Volver</a>

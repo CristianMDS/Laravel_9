@@ -66,9 +66,20 @@ class PostsController extends Controller
     public function store(Request $request)
     {
 
+        $request->validate([
+            'title' => 'required',
+            'slug' => 'required | unique:posts,slug',
+            'body' => 'required'
+        ], [
+            'title.required' => 'El titulo es requerido',
+            'slug.required' => 'Este campo es obligatorio',
+            'slug.unique' => 'Este valor ya existe, busca uno nuevo',
+            'body.required' => 'Es necesario llenar este campo'
+        ]);
         $send = $request->user()->posts()->create([
-            'title' => $title = $request->title,
-            'slug' => Str::slug($title),
+            'title' => $request->title,
+            'slug' => $request->slug,
+            // 'slug' => Str::slug($title),
             'body' => $request->body
         ]);
         return redirect()->route('posts.edit', $send);
@@ -82,9 +93,20 @@ class PostsController extends Controller
      */
     public function update(Request $request, Posts $post)
     {
+        $request->validate([
+            'title' => 'required',
+            'slug' => 'required | unique:posts,slug,'.$post->id,
+            'body' => 'required'
+        ], [
+            'title.required' => 'El titulo es requerido',
+            'slug.required' => 'Este campo es obligatorio',
+            'slug.unique' => 'Este valor ya existe, busca uno nuevo',
+            'body.required' => 'Es necesario llenar este campo'
+        ]);
         $post->update([
-            'title' => $title = $request->title,
-            'slug' => Str::slug($title),
+            'title' => $request->title,
+            'slug' => $request->slug,
+            // 'slug' => Str::slug($title),
             'body' => $request->body
         ]);
         return redirect()->route('posts.edit', $post);
