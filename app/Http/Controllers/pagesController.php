@@ -7,13 +7,13 @@ use App\Models\Posts;
 
 class pagesController extends Controller
 {
-    public function home(){
-        return view('home');
-    }
-
-    public function posts(){
-        $post = Posts::get();
-        return view('posts', ['posts' => $post]);
+    public function home(Request $request){
+        $search = $request->search;
+        $post = Posts::where('title', 'LIKE', "%$search%")
+                        ->with('user')
+                        ->latest()
+                        ->paginate();
+        return view('home', ['posts' => $post]);
     }
 
     public function post($post){

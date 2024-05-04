@@ -2,6 +2,8 @@
 
 @section('content')
 
+<h1>Publicaciones</h1>
+
 @foreach ($posts as $post)
 <br><br>
 <tr>

@@ -13,16 +13,15 @@
                 <a href="{{ route('home') }}">
                     <img src="{{asset('images/logo.png')}}" alt="logo" class="h-12">
                 </a>
-                <form action="">
+                <form action="{{ route('home') }}" method="GET" class="flex-grow">
                     <input 
                         type="text" 
-                        name="buscar" 
-                        id="buscar" 
+                        name="search"
                         placeholder="buscar..." 
+                        value="{{ request('search') }}"
                         class="rounded-full border-indigo-800 px-2 w-max" />
                 </form>
             </div>
-
             @auth
                 <a href="{{ route('dashboard') }}"> Dashboard </a>
             @else
@@ -30,7 +29,23 @@
             @endauth
 
         </header>
+        
+        <div class="opacity-60 h-px mb-8" style="
+                background: linear-gradient(to right,
+                    rgba(188,0,200,0) 0%,
+                    rgba(188,0,200,1) 30%,
+                    rgba(188,0,200,1) 70%,
+                    rgba(188,0,200,0) 100%
+                );
+            ">
+        </div>
+
         @yield('content')
+
+        <p class="py-16">
+            <img src="{{asset('images/logo.png')}}" alt="logo" class="h-12 mx-auto opacity-75">
+        </p>
+
     </div>
 </body>
 </html>

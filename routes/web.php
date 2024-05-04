@@ -22,16 +22,22 @@ Route::get('/', function () {
 });
 
 Route::controller(pagesController::class)->group(function (){
-    Route::get('/home-project', 'home')->name('home');
-    Route::get('/posts', 'posts')->name('posts');
+    Route::get('/home-project',     'home')->name('home');
+    // Route::get('/posts', 'posts')->name('posts');
     Route::get('/post/{posts:slug}', 'post')->name('post');
 });
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+// Route::get('/dashboard', function () {
+//     return view('dashboard');
+// })->middleware(['auth', 'verified'])->name('dashboard');
+Route::redirect('dashboard', 'posts')->name('dashboard');
 
-Route::resource('posts', PostsController::class)->except(['show'])->middleware('auth');
+// Route::resource('posts', PostsController::class)->except(['show'])
+//                                                 ->middleware('auth');
+
+Route::resource('posts', PostsController::class)->middleware(['auth', 'verified'])
+                                                ->except(['show'])
+                                                ->middleware('auth');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

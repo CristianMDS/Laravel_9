@@ -106,7 +106,6 @@ class PostsController extends Controller
         $post->update([
             'title' => $request->title,
             'slug' => $request->slug,
-            // 'slug' => Str::slug($title),
             'body' => $request->body
         ]);
         return redirect()->route('posts.edit', $post);
