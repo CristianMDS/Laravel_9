@@ -17,12 +17,12 @@ use Illuminate\Support\Facades\Route;
 */
 
 
-Route::get('/', function () {
-    return view('welcome');
-});
+// Route::get('/', function () {
+    // return view('welcome');
+// });
 
 Route::controller(pagesController::class)->group(function (){
-    Route::get('/home-project',     'home')->name('home');
+    Route::get('/',     'home')->name('home');
     // Route::get('/posts', 'posts')->name('posts');
     Route::get('/post/{posts:slug}', 'post')->name('post');
 });
